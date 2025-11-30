@@ -1,0 +1,27 @@
+[project]
+name = "comicmanager"
+version = "0.1.0"
+description = "CBZ文件合并工具 - 支持多个CBZ文件按自定义顺序合并"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "tkinterdnd2>=0.3.0",
+    "pillow>=10.0.0",
+    "click>=8.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0"
+]
+
+[project.scripts]
+comicmanager = "comicmanager.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[[tool.uv.index]]
+name = "tuna"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"

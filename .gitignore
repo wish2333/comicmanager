@@ -1,0 +1,24 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+uv.lock
+.python-version
+
+# Example files
+example/
+
+# Docs
+docs/_build/
+
+# Cluade Code
+runCC-DS.bat
+runCC-GLM.bat
+CLAUDE.md
+.claude/

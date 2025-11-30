@@ -1,0 +1,310 @@
+Metadata-Version: 2.4
+Name: comicmanager
+Version: 0.1.0
+Summary: CBZ文件合并工具 - 支持多个CBZ文件按自定义顺序合并
+Requires-Python: >=3.10
+Requires-Dist: click>=8.0.0
+Requires-Dist: pillow>=10.0.0
+Requires-Dist: tkinterdnd2>=0.3.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# ComicManager - CBZ文件合并工具
+
+一个简单易用的Python GUI应用程序，用于合并多个CBZ（Comic Book ZIP）文件。支持自定义合并顺序、拖拽排序和进度显示。
+
+## 功能特性
+
+- **多文件合并**: 支持同时合并多个CBZ文件
+- **拖拽排序**: 直观的文件顺序调整功能
+- **键盘操作**: 丰富的键盘快捷键支持
+- **进度显示**: 实时显示合并进度
+- **元数据保留**: 可选择保留原始CBZ文件的元数据
+- **错误处理**: 完善的错误检查和用户提示
+- **配置保存**: 自动保存用户设置和最近使用文件
+- **轻量级**: 基于Tkinter，无需复杂依赖
+
+## 系统要求
+
+- Python 3.10+
+- uv 包管理器
+- 支持的操作系统：Windows, macOS, Linux
+
+## 安装和运行
+
+### 1. 环境准备
+
+```bash
+# 确保已安装uv包管理器
+# 如果没有安装，请访问 https://github.com/astral-sh/uv
+
+# 进入项目目录
+cd ComicManager
+```
+
+### 2. 安装依赖
+
+```bash
+# 使用uv安装依赖（配置清华镜像源）
+uv add --default-index https://pypi.tuna.tsinghua.edu.cn/simple tkinterdnd2>=0.3.0 pillow>=10.0.0 click>=8.0.0
+
+# 或者安装所有依赖
+uv sync --default-index https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+### 3. 运行程序
+
+```bash
+# 启动GUI应用程序
+uv run python -m comicmanager.main
+
+# 或者使用快速启动脚本
+python run_comicmanager.py
+```
+
+## 使用方法
+
+### 基本操作
+
+1. **添加文件**:
+   - 点击"添加文件"按钮，或使用快捷键 `Ctrl+O`
+   - 选择要合并的CBZ文件（支持多选）
+
+2. **调整顺序**:
+   - **拖拽方式**: 直接拖拽文件到目标位置
+   - **按钮方式**: 选中文件后使用上移/下移/置顶/置底按钮
+   - **键盘方式**: 选中文件后使用 `Ctrl+↑/↓/Home/End`
+
+3. **设置输出**:
+   - 输入输出文件名（默认自动生成）
+   - 选择保存目录
+   - 可选择是否保留原始元数据
+
+4. **开始合并**:
+   - 点击"开始合并"按钮
+   - 观察进度条显示
+   - 合并完成后查看结果
+
+### 快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Ctrl+O` | 添加文件 |
+| `Ctrl+A` | 全选文件 |
+| `Delete` | 删除选中文件 |
+| `Ctrl+↑` | 向上移动选中项 |
+| `Ctrl+↓` | 向下移动选中项 |
+| `Ctrl+Home` | 移至顶部 |
+| `Ctrl+End` | 移至底部 |
+| `Ctrl+Q` | 退出程序 |
+
+### 文件选择
+
+- **单选**: 直接点击文件
+- **多选**: `Ctrl+点击` 添加/移除文件
+- **范围选择**: `Shift+点击` 选择范围
+
+## 项目结构
+
+```
+comicmanager/
+├── __init__.py
+├── main.py                    # 程序入口
+├── core/                      # 核心功能模块
+│   ├── __init__.py
+│   ├── cbz_merger.py         # CBZ合并核心逻辑
+│   ├── file_utils.py         # 文件操作工具
+│   └── config.py             # 配置管理
+├── gui/                       # 图形界面模块
+│   ├── __init__.py
+│   ├── main_window.py        # 主界面
+│   ├── file_list_widget.py   # 可排序文件列表组件
+│   ├── drag_drop_handler.py # 拖拽处理
+│   └── settings.py           # 设置窗口
+├── utils/                     # 工具模块
+│   ├── __init__.py
+│   └── validators.py         # 输入验证
+└── tests/                     # 测试模块
+    ├── __init__.py
+    └── test_merger.py        # 测试用例
+```
+
+## 测试
+
+### 环境检查
+
+```bash
+# 检查运行环境
+python check_setup_simple.py
+```
+
+### 自动化测试
+
+```bash
+# 运行所有测试
+uv run python -m pytest comicmanager/tests/
+
+# 运行特定测试
+uv run python -m pytest comicmanager/tests/test_merger.py::TestCBZMerger::test_merge_cbz_files
+
+# 查看测试覆盖率
+uv run python -m pytest comicmanager/tests/ --cov=comicmanager
+```
+
+### 手动测试
+
+```bash
+# 查看手动测试指导
+uv run python -m comicmanager.tests.test_merger manual
+```
+
+### 示例测试
+
+项目包含两个示例CBZ文件用于测试：
+
+```bash
+example/
+├── Backlight - 第28话.cbz
+└── Backlight - 第29话.cbz
+```
+
+## 配置
+
+应用程序支持多种配置选项：
+
+- **默认输出目录**: 设置文件保存位置
+- **界面主题**: 选择界面外观
+- **字体设置**: 调整字体大小
+- **性能选项**: 内存使用和文件处理设置
+- **临时文件**: 临时文件管理设置
+
+配置文件位置：`~/.comicmanager/config.json`
+
+## 故障排除
+
+### 常见问题
+
+1. **启动失败**:
+   ```bash
+   # 检查Python版本
+   python --version  # 需要 >= 3.10
+
+   # 检查依赖安装
+   uv show tkinterdnd2 pillow click
+   ```
+
+2. **拖拽功能不可用**:
+   ```bash
+   # 安装tkinterdnd2
+   uv add tkinterdnd2 --default-index https://pypi.tuna.tsinghua.edu.cn/simple
+   ```
+
+3. **内存不足**:
+   - 在设置中调整内存使用限制
+   - 减少同时处理的文件数量
+
+4. **合并失败**:
+   - 检查输入CBZ文件是否完整
+   - 确认输出目录有写入权限
+   - 查看错误日志了解具体问题
+
+### 依赖安装问题
+
+如果遇到依赖安装问题，可以尝试以下方法：
+
+```bash
+# 方法1: 升级uv
+pip install --upgrade uv
+
+# 方法2: 清理缓存
+uv cache clean
+
+# 方法3: 重新创建虚拟环境
+uv venv --force
+source .venv/bin/activate  # Linux/Mac
+# 或
+.venv\Scripts\activate     # Windows
+```
+
+## 开发
+
+### 开发环境设置
+
+```bash
+# 克隆项目
+git clone <repository-url>
+cd ComicManager
+
+# 创建虚拟环境
+uv venv
+
+# 激活虚拟环境
+# Windows: .venv\Scripts\activate
+# Unix: source .venv/bin/activate
+
+# 安装开发依赖
+uv add --dev pytest pytest-cov mypy black flake8
+```
+
+### 代码规范
+
+项目遵循以下代码规范：
+
+- **格式化**: 使用 `black` 进行代码格式化
+- **类型检查**: 使用 `mypy` 进行类型检查
+- **代码质量**: 使用 `flake8` 进行代码检查
+
+```bash
+# 代码格式化
+uv run black comicmanager/
+
+# 类型检查
+uv run mypy comicmanager/
+
+# 代码质量检查
+uv run flake8 comicmanager/
+```
+
+## 贡献
+
+欢迎提交问题报告和功能请求！
+
+1. Fork 项目
+2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
+
+## 更新日志
+
+### v0.1.0 (2025-11-29)
+- 初始版本发布
+- 基础CBZ文件合并功能
+- 拖拽排序支持
+- 进度显示
+- 配置管理
+- 完整的测试覆盖
+
+## 许可证
+
+本项目采用 MIT 许可证。
+
+## 致谢
+
+- [TkinterDnD2](https://github.com/pmg-tkinter/tkinterdnd2) - 拖拽功能支持
+- [Pillow](https://pillow.readthedocs.io/) - 图像处理
+- [Click](https://click.palletsprojects.com/) - 命令行接口
+
+## 支持
+
+如果您遇到问题或有建议：
+
+1. 查看故障排除部分
+2. 检查是否为已知问题
+3. 创建新的Issue并描述问题
+4. 提供详细的错误信息和复现步骤
+
+---
+
+感谢使用 ComicManager！
