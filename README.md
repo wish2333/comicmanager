@@ -1,14 +1,20 @@
-# ComicManager - CBZ文件合并工具
+# ComicManager - CBZ/ZIP文件合并工具
 
-一个简单易用的Python GUI应用程序，用于合并多个CBZ（Comic Book ZIP）文件。支持自定义合并顺序、拖拽排序和进度显示。
+一个功能强大的Python GUI应用程序，用于合并多个CBZ（Comic Book ZIP）和ZIP文件。支持自定义合并顺序、拖拽排序、智能图片提取和自动重命名。
 
 ## 功能特性
 
-- **多文件合并**: 支持同时合并多个CBZ文件
+### 核心功能
+- **多格式支持**: 同时处理CBZ和ZIP文件格式
+- **智能图片提取**: 从ZIP文件中自动提取图片（JPG, PNG, WEBP, GIF, BMP）
+- **自动重命名**: 按章节自动重命名图片（ch1_001.jpg, ch2_001.jpg...）
+- **多文件合并**: 支持同时合并多个漫画文件
+
+### 用户体验
 - **拖拽排序**: 直观的文件顺序调整功能
 - **键盘操作**: 丰富的键盘快捷键支持
 - **进度显示**: 实时显示合并进度
-- **元数据保留**: 可选择保留原始CBZ文件的元数据
+- **元数据保留**: 可选择保留原始文件的元数据
 - **错误处理**: 完善的错误检查和用户提示
 - **配置保存**: 自动保存用户设置和最近使用文件
 - **轻量级**: 基于Tkinter，无需复杂依赖
@@ -35,7 +41,7 @@ cd ComicManager
 
 ```bash
 # 使用uv安装依赖（配置清华镜像源）
-uv add --default-index https://pypi.tuna.tsinghua.edu.cn/simple tkinterdnd2>=0.3.0 pillow>=10.0.0 click>=8.0.0
+uv add --default-index https://pypi.tuna.tsinghua.edu.cn/simple tkinterdnd2>=0.3.0
 
 # 或者安装所有依赖
 uv sync --default-index https://pypi.tuna.tsinghua.edu.cn/simple
@@ -57,7 +63,8 @@ python run_comicmanager.py
 
 1. **添加文件**:
    - 点击"添加文件"按钮，或使用快捷键 `Ctrl+O`
-   - 选择要合并的CBZ文件（支持多选）
+   - 选择要合并的CBZ和ZIP文件（支持多选）
+   - 直接拖拽文件到窗口内
 
 2. **调整顺序**:
    - **拖拽方式**: 直接拖拽文件到目标位置
@@ -101,7 +108,8 @@ comicmanager/
 ├── main.py                    # 程序入口
 ├── core/                      # 核心功能模块
 │   ├── __init__.py
-│   ├── cbz_merger.py         # CBZ合并核心逻辑
+│   ├── cbz_merger.py         # CBZ/ZIP合并核心逻辑
+│   ├── zip_extractor.py      # ZIP图片提取器
 │   ├── file_utils.py         # 文件操作工具
 │   └── config.py             # 配置管理
 ├── gui/                       # 图形界面模块
@@ -177,7 +185,7 @@ example/
    ```bash
    # 检查Python版本
    python --version  # 需要 >= 3.10
-
+   
    # 检查依赖安装
    uv show tkinterdnd2 pillow click
    ```
@@ -266,6 +274,14 @@ uv run flake8 comicmanager/
 
 ## 更新日志
 
+### v0.2.0 (2025-11-30)
+- **新增ZIP文件支持**: 完整支持ZIP格式的漫画文件
+- **智能图片提取**: 从ZIP文件中自动提取图片并按格式过滤
+- **自动重命名系统**: 按章节自动重命名图片（ch1_001.jpg, ch2_001.jpg...）
+- **增强的文件验证**: 改进的文件格式检查和错误处理
+- **性能优化**: 更高效的图片提取和重命名流程
+- **修复BUG**: 解决了文件重命名时的语法错误和页码递增问题
+
 ### v0.1.0 (2025-11-29)
 - 初始版本发布
 - 基础CBZ文件合并功能
@@ -281,8 +297,6 @@ uv run flake8 comicmanager/
 ## 致谢
 
 - [TkinterDnD2](https://github.com/pmg-tkinter/tkinterdnd2) - 拖拽功能支持
-- [Pillow](https://pillow.readthedocs.io/) - 图像处理
-- [Click](https://click.palletsprojects.com/) - 命令行接口
 
 ## 支持
 

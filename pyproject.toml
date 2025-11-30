@@ -1,13 +1,11 @@
 [project]
 name = "comicmanager"
-version = "0.1.0"
-description = "CBZ文件合并工具 - 支持多个CBZ文件按自定义顺序合并"
+version = "0.2.0"
+description = "CBZ文件合并工具 - 支持CBZ和ZIP文件按自定义顺序合并，智能图片提取和重命名"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "tkinterdnd2>=0.3.0",
-    "pillow>=10.0.0",
-    "click>=8.0.0"
+    "tkinterdnd2>=0.3.0"
 ]
 
 [project.optional-dependencies]

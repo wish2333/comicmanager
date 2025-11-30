@@ -20,5 +20,8 @@ docs/_build/
 # Cluade Code
 runCC-DS.bat
 runCC-GLM.bat
+runCC-others.bat
 CLAUDE.md
 .claude/
+openspec/
+AGENTS.md

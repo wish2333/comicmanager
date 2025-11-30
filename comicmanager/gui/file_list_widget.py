@@ -312,8 +312,12 @@ class FileListWidget(ttk.Frame):
         for file_path in file_paths:
             try:
                 # 验证文件
-                if not FileUtils.is_valid_cbz_file(file_path):
-                    messagebox.showwarning("警告", f"{file_path} 不是有效的CBZ文件")
+                if not FileUtils.is_valid_comic_file(file_path):
+                    file_type = FileUtils.get_file_type(file_path)
+                    if file_type == 'UNKNOWN':
+                        messagebox.showwarning("警告", f"{file_path} 不是有效的漫画文件（支持CBZ和ZIP格式）")
+                    else:
+                        messagebox.showwarning("警告", f"{file_path} 不是有效的{file_type}文件")
                     continue
 
                 # 检查是否已存在
