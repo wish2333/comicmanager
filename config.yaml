@@ -1,0 +1,40 @@
+# ComicManager Neo Configuration
+
+app:
+  name: "ComicManager Neo"
+  version: "1.0.0"
+  language: "zh-CN"
+
+# Output settings
+output:
+  default_dir: "~"
+  auto_increment: true
+  preserve_metadata: true
+
+# ZIP extraction settings
+zip_extraction:
+  default_formats:
+    - jpg
+    - jpeg
+    - png
+    - webp
+  max_image_size_mb: 100
+
+# UI settings
+ui:
+  theme: "light"
+  window:
+    width: 1000
+    height: 700
+    min_width: 800
+    min_height: 600
+
+# Recent files
+recent:
+  max_count: 10
+  files: []
+
+# Server settings
+server:
+  host: "127.0.0.1"
+  port: 0
