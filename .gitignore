@@ -11,8 +11,16 @@ wheels/
 uv.lock
 .python-version
 
-# Example files
-example/
+# Frontend
+node_modules/
+bun.lock
+public/
+
+# Tests
+tests/
+
+# References
+comicmanager/
 
 # Docs
 docs/_build/
